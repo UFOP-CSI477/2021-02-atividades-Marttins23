@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversor de Moedas</title>
+    <link rel="stylesheet" href="style.css">
+
+</head>
+<body onload="carregaMoedas(), inicializaData()">
+    
+    <div class="container">
+
+        <div class=titulo>
+            <h1>Conversor de Moedas</h1>
+            <h2>Mateus Ferreira Martins - 17.2.8082</h2>
+        </div>
+
+        <form>
+
+            <div class="linha">
+
+                <div>
+                    <label for="valor">Valor a Converter:</label>
+                    <input type="text" name="valor" id="valor" placeholder="Valor:">
+                </div>
+                
+                <div>
+                    <label for="moeda-origem">De:</label>
+                    <select name="moeda-origem" class="select-moeda" id="moeda-origem" onchange="carregaCotacao(event, capturaData())">
+                        <option value="">Selecione:</option>
+                    </select>
+                </div>
+    
+                <div>
+                    <label for="moeda-destino">Para:</label>
+                    <select name="moeda-destino" class="select-moeda" id="moeda-destino" onchange="carregaCotacao(event, capturaData())">
+                        <option value="">Selecione:</option>
+                    </select>
+                </div>
+        
+                <div>
+                    <label for="data-conversao">Data:</label>
+                    <input type="date" id="data-conversao">
+                </div>
+            </div>
+    
+            <div class="linha" id="segunda-linha">
+                
+                <div>
+                    <label for="resultado">Resultado da Conversão</label>
+                    <input type="text" name="resultado" id="resultado" readonly="true">
+                    <input type="button" value="Resultado" onclick="carregaResultado()">
+                </div>
+                
+            </div>
+    
+        </form>
+    </div>
+
+    <script src="api.js"></script>
+    <script src="helpers.js"></script>
+
+</body>
+</html>
