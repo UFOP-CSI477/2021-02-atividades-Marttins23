@@ -18,6 +18,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::controller(TarefaController::class)->group(function() {
+    Route::post('/tarefas/{id}/concluir',  'concluir')->name('tarefas.concluir');
+    Route::get('/tarefas/concluidas', 'mostrarConcluidas')->name('tarefas.concluidas');
+});
+
 Route::resources([
    'tarefas' => TarefaController::class
 ]);

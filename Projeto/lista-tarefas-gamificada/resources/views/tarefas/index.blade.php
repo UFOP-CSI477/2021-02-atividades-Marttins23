@@ -1,10 +1,5 @@
-@extends('template')
+<x-template title="Tarefas">
 
-@section('cabecalho')
-    Tarefas
-@endsection
-
-@section('conteudo')
     @if(session('mensagem'))
         <div class="alert alert-success">
             {{ session('mensagem') }}
@@ -17,16 +12,24 @@
                 {{ $tarefa->descricao }}
 
                 <span class="d-flex">
-                    <a href="#" class="btn btn-info btn-sm mr-1">
+                    <a href="{{ route('tarefas.edit', $tarefa->id) }}" class="btn btn-info btn-sm mr-1" title="Ver detalhes e editar">
                     <i class="fa-solid fa-arrow-up-right-from-square"></i>
                     </a>
+                    <form name="formConcluida"
+                          action="{{ route('tarefas.concluir', $tarefa->id) }}"
+                          method="post">
+                        @csrf
+                        <button class="btn btn-success btn-sm mr-1" title="Marcar como concluída">
+                            <i class="fa-solid fa-check"></i>
+                        </button>
+                    </form>
                     <form name="formDelete"
                           action="{{ route('tarefas.destroy', $tarefa->id) }}"
                           method="post"
                           onsubmit="return confirm('Deseja realmente excluir a Tarefa?');">
                         @csrf
                         @method("DELETE")
-                        <button type="submit" class="btn btn-danger btn-sm">
+                        <button type="submit" class="btn btn-danger btn-sm" title="Excluir">
                             <i class="fa-solid fa-trash-can"></i>
                         </button>
                     </form>
@@ -34,4 +37,4 @@
             </li>
         @endforeach
     </ul>
-@endsection
+</x-template>

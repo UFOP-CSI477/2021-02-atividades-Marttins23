@@ -3,81 +3,74 @@
 namespace App\Http\Controllers;
 
 use App\Models\Tarefa;
-use App\Http\Requests\StoreTarefaRequest;
-use App\Http\Requests\UpdateTarefaRequest;
+use Illuminate\Http\Request;
 
 class TarefaController extends Controller
 {
 
     public function index()
     {
-        $tarefas = Tarefa::query()->orderBy('descricao')->get();
-        return view('tarefas.index', ['tarefas' => $tarefas]);
+        $tarefas = Tarefa::query()->where('concluida', false)->orderBy('descricao')->get();
+        return view('tarefas.index')->with('tarefas', $tarefas);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        //
+        return view('tarefas.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreTarefaRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(StoreTarefaRequest $request)
+    public function store(Request $request)
+    {
+        $request->request->add(['concluida' => false]);
+        Tarefa::create($request->only('descricao', 'concluida'));
+
+        return to_route('tarefas.index')
+            ->with('mensagem', "Tarefa ' $request->descricao ' criada com sucesso!");
+    }
+
+    public function show($id)
     {
         //
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Tarefa  $tarefa
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Tarefa $tarefa)
+    public function edit($id)
     {
-        //
+        $tarefa = Tarefa::find($id);
+
+        return view('tarefas.edit')->with('tarefa', $tarefa);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Tarefa  $tarefa
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Tarefa $tarefa)
+    public function update(Request $request, Tarefa $tarefa)
     {
-        //
+        $tarefa->fill($request->all());
+        $tarefa->save();
+
+        return to_route('tarefas.index')
+            ->with('mensagem', "Tarefa ' $tarefa->descricao ' editada com sucesso!");
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateTarefaRequest  $request
-     * @param  \App\Models\Tarefa  $tarefa
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateTarefaRequest $request, Tarefa $tarefa)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Tarefa  $tarefa
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Tarefa $tarefa)
     {
-        //
+        $tarefa->delete();
+
+        return to_route('tarefas.index')
+            ->with('mensagem', "Tarefa ' $tarefa->descricao ' removida com sucesso!");
     }
+
+    public function concluir($id)
+    {
+        $tarefa = Tarefa::find($id);
+        $tarefa->concluida = true;
+        $tarefa->save();
+
+        return to_route('tarefas.index')
+            ->with('mensagem', "Tarefa ' $tarefa->descricao ' concluída concluída com sucesso!");
+    }
+
+    public function mostrarConcluidas()
+    {
+        $tarefas = Tarefa::query()->where('concluida', true)->orderBy('descricao')->get();
+        return view('tarefas.index')->with('tarefas', $tarefas);
+    }
+
 }
