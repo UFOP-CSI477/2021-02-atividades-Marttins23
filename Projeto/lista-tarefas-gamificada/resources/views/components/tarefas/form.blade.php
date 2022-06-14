@@ -5,7 +5,7 @@
         @method('PUT')
     @endisset
     <div class="row">
-        <div class="col col-8">
+        <div class="col-9">
             <label for="nome">Descrição</label>
             <input type="text"
                    class="form-control"
