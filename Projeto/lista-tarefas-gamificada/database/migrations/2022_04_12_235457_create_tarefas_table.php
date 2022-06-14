@@ -16,7 +16,8 @@ return new class extends Migration
         Schema::create('tarefas', function (Blueprint $table) {
             $table->id();
             $table->string('descricao');
-            $table->boolean('concluida');
+            $table->boolean('concluida')->default(false);
+            $table->foreignId('users_id')->constrained();
         });
     }
 

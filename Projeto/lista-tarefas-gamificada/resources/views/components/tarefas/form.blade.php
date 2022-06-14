@@ -1,12 +1,3 @@
-@if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
 <form action="{{ $action }}" method="post">
     @csrf
 
@@ -22,6 +13,9 @@
                    id="descricao"
                    @isset($descricao)value="{{ $descricao }}"@endisset>
         </div>
+        {{ $slot }}
     </div>
-    <button type="submit" class="btn btn-primary mt-2">Adicionar</button>
+    <button type="submit" class="btn btn-dark mt-2">
+        Salvar
+    </button>
 </form>

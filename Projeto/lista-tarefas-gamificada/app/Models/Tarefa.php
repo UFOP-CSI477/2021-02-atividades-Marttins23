@@ -10,5 +10,10 @@ class Tarefa extends Model
     use HasFactory;
     protected $table = 'tarefas';
     public $timestamps = false;
-    protected $fillable = ['descricao', 'concluida'];
+    protected $fillable = ['descricao', 'concluida', 'users_id'];
+
+    public function usuario()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
