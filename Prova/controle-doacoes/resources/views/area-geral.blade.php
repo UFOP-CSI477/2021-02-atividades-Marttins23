@@ -9,14 +9,14 @@
         </thead>
         <tbody>
         <tr>
-            <th scope="row"> Entidade 1 </th>
-            <td>1</td>
+            <th scope="row"> </th>
+            <td></td>
         </tr>
         </tbody>
         <tfoot class="text-white bg-secondary">
             <tr>
                 <th scope="row"> TOTAL GERAL </th>
-                <td> 1 </td>
+                <td> </td>
             </tr>
         </tfoot>
     </table>
@@ -32,16 +32,16 @@
         </thead>
         <tbody>
         <tr>
-            <th scope="row"> Arroz </th>
-            <td>23</td>
-            <td>100%</td>
+            <th scope="row"> </th>
+            <td></td>
+            <td></td>
         </tr>
         </tbody>
         <tfoot class="text-white bg-secondary">
         <tr>
             <th scope="row"> TOTAL GERAL </th>
-            <td>23</td>
-            <td> 100% </td>
+            <td></td>
+            <td> </td>
         </tr>
         </tfoot>
     </table>
