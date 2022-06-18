@@ -61,7 +61,6 @@ class TarefaController extends Controller
            'descricao' => ['required', 'min:3']
         ]);
 
-
         $desmarcouTarefaConcluida = ($request->concluida != $tarefa->concluida) && (isset($request->concluida));
         $tarefa->fill($request->all());
         $tarefa->save();
